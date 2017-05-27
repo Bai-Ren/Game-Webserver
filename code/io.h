@@ -1,8 +1,10 @@
 #pragma once
-#include <stddef.h>
 #include <sys/types.h>
+#include <stddef.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 typedef enum { NONE, GET, PUT, DELETE, LIST } verb;
 

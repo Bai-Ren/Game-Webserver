@@ -80,12 +80,12 @@ void write_all_noerr(int socket, const char *buffer, size_t count) {
 	ssize_t result = write_all_to_socket(socket, buffer, count);
 
 	if (result == -1) {
-		print_error_message("Error writing to socket\n");
+		fprintf(stderr, "Error writing to socket\n");
 		exit(1);
 	}
 
 	if ((size_t)result != count) {
-		print_connection_closed();
+		fprintf(stderr, "Connection closed\n");
 		exit(1);
 	}
 }
@@ -94,12 +94,12 @@ void read_all_noerr(int socket, char *buffer, size_t count) {
 	ssize_t result = read_all_from_socket(socket, buffer, count);
 
 	if (result == -1) {
-		print_error_message("Error reading from socket\n");
+		fprintf(stderr, "Error reading from socket\n");
 		exit(1);
 	}
 
 	if ((size_t)result != count) {
-		print_connection_closed();
+		fprintf(stderr, "Connection closed\n");
 		exit(1);
 	}
 }
