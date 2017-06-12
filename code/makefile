@@ -1,6 +1,6 @@
 MAX_EVENTS = 16
 
-OBJS = .objs/server.o .objs/io.o .objs/setupServer.o
+OBJS = .objs/server.o .objs/io.o .objs/setupServer.o .objs/processHeader.o
 
 CC = gcc
 WARNINGS = -Wall -Wextra -Wno-unused -Wno-unused-parameter
@@ -18,7 +18,10 @@ all: server
 .objs/setupServer.o: setupServer.c setupServer.h
 	$(CC) $(CFLAGS) $< -o $@
 
-.objs/server.o: server.c
+.objs/server.o: server.c serverTypes.h
+	$(CC) $(CFLAGS) $< -o $@
+
+.objs/processHeader.o: processHeader.c processHeader.h serverTypes.h
 	$(CC) $(CFLAGS) $< -o $@
 
 server: $(OBJS)

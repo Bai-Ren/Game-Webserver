@@ -1,14 +1,11 @@
 #include "io.h"
 #include "setupServer.h"
+#include "processHeader.h"
+#include "serverTypes.h"
 #include <signal.h>
 
 static int running = 1;
 static int epfd;
-
-typedef struct {
-	int	cfd;
-	int pfd[2];
-} fds;
 
 void close_connection(int fd) {
 	printf("connection closed on fd %i\n", fd);
@@ -31,7 +28,8 @@ void new_connection(int sock_fd) {
 	//Add client to epoll
 	struct epoll_event event;
 	event.events = EPOLLIN | EPOLLOUT;
-	fds *it = malloc(sizeof(fds));
+	status *it = malloc(sizeof(status));
+	it->m   = HEADER;
 	it->cfd = new_fd;
 	it->pfd[0] = -1;
 	it->pfd[1] = -1;
@@ -43,7 +41,18 @@ void new_connection(int sock_fd) {
 }
 
 void process_event(struct epoll_event ev) {
+	status *stat = (status *) ev.data.ptr;
+	switch (stat->m) {
+		case HEADER:
+			process_header(stat);
+			break;
+		case BODY:
 
+			break;
+		default:
+			fprintf(stderr, "INVALID METHOD INVOKED BY CLIENT FD %i\n", stat->cfd);
+			return;
+	}
 }
 
 void setup_sig() {
