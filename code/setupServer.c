@@ -4,6 +4,7 @@
 //exits on failure
 
 int setup_server(char *port) {
+	printf("Setting up server\n");
 	//Make socket
 
 	int sock_fd = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
@@ -57,6 +58,8 @@ int setup_server(char *port) {
 	}
 
 	freeaddrinfo(info);
+
+	printf("Server setup on port %s\n", port);
 
 	return sock_fd;
 }

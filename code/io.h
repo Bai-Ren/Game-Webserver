@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef enum { NONE, GET, PUT, DELETE, LIST } verb;
-
-
 ssize_t read_all_from_socket(int socket, char *buffer, size_t count);
 ssize_t write_all_to_socket(int socket, const char *buffer, size_t count);
 

@@ -46,7 +46,7 @@ void process_event(struct epoll_event ev) {
 		case HEADER:
 			process_header(stat);
 			break;
-		case BODY:
+		case GET:
 
 			break;
 		default:
